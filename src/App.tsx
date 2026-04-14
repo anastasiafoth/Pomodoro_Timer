@@ -26,14 +26,17 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-200 flex items-center justify-center">
       {/*<!-- CARD -->*/}
-      <main className=" bg-white p-36 text-center rounded-4xl shadow-2xl border-b-8 border-cyan-900">
-        <h2 className="text-4xl">Focus!</h2>
-        <h1 className="text-6xl font-black p-4 text-cyan-900">
-          {formatTime(time)}
-        </h1>
+      <main className="bg-white h-72 w-72 flex flex-col items-center rounded-4xl shadow-2xl border-b-8 border-cyan-900 p-10 md:h-96 md:w-96">
+        {/* MIDDLE wächst automatisch */}
+        <div className="flex-1 flex flex-col justify-center text-center">
+          <h2 className="text-4xl ">Focus!</h2>
+          <h1 className="text-6xl pt-4 font-black text-cyan-900 ">
+            {formatTime(time)}
+          </h1>
+        </div>
 
         {/*<!-- BUTTONS -->*/}
-        <section>
+        <section className="flex gap-8">
           <button
             aria-label="restart"
             onClick={() => {
