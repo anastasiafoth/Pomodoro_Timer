@@ -2,17 +2,38 @@ import "./App.css";
 import { useState, useEffect } from "react";
 
 function App() {
-  const [time, setTime] = useState(1500); // 25 minutes = 1500 seconds
+  const FOCUS_TIME = 1500; // 25 min
+  const BREAK_TIME_SHORT = 300; // 5 min
+  const BREAK_TIME_LONG = 900; // 15 min
+  const MAX_CYCLES = 4;
+  const [time, setTime] = useState(FOCUS_TIME);
   const [isRunning, setIsRunning] = useState(false);
+  const [isBreak, setIsBreak] = useState(false);
+  const [cycle, setCycle] = useState(0);
 
   useEffect(() => {
-    let interval: number | undefined;
+    if (time !== 0 || !isRunning) return;
 
-    if (isRunning) {
-      interval = setInterval(() => {
-        setTime((prev) => (prev > 0 ? prev - 1 : 0));
-      }, 1000);
+    if (!isBreak) {
+      // Focus → Break
+      const isLast = cycle + 1 >= MAX_CYCLES;
+      setIsBreak(true);
+      setTime(isLast ? BREAK_TIME_LONG : BREAK_TIME_SHORT);
+    } else {
+      // Break → Focus
+      const newCycle = (cycle + 1) % MAX_CYCLES;
+      setCycle(newCycle);
+      setIsBreak(false);
+      setTime(FOCUS_TIME);
     }
+  }, [time, isRunning]);
+
+  useEffect(() => {
+    if (!isRunning) return;
+
+    const interval = setInterval(() => {
+      setTime((prev) => Math.max(prev - 1, 0));
+    }, 1000);
 
     return () => clearInterval(interval);
   }, [isRunning]);
@@ -27,9 +48,10 @@ function App() {
     <div className="min-h-screen bg-gray-200 flex items-center justify-center">
       {/*<!-- CARD -->*/}
       <main className="bg-white h-72 w-72 flex flex-col items-center rounded-4xl shadow-2xl border-b-8 border-cyan-900 p-10 md:h-96 md:w-96">
-        {/* MIDDLE wächst automatisch */}
         <div className="flex-1 flex flex-col justify-center text-center">
-          <h2 className="text-4xl ">Focus!</h2>
+          <h2 className="text-4xl ">
+            {isBreak ? "Break" : "Focus!"} (Round {cycle + 1}/{MAX_CYCLES})
+          </h2>
           <h1 className="text-6xl pt-4 font-black text-cyan-900 ">
             {formatTime(time)}
           </h1>
@@ -39,9 +61,12 @@ function App() {
         <section className="flex gap-8">
           <button
             aria-label="restart"
+            className="hover:cursor-pointer"
             onClick={() => {
-              setTime(1500);
               setIsRunning(false);
+              setIsBreak(false);
+              setCycle(0);
+              setTime(FOCUS_TIME);
             }}
           >
             <svg
@@ -54,7 +79,11 @@ function App() {
             </svg>
           </button>
           {isRunning ? (
-            <button aria-label="pause" onClick={() => setIsRunning(!isRunning)}>
+            <button
+              aria-label="pause"
+              className="hover:cursor-pointer"
+              onClick={() => setIsRunning(!isRunning)}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="35px"
@@ -65,7 +94,11 @@ function App() {
               </svg>
             </button>
           ) : (
-            <button aria-label="play" onClick={() => setIsRunning(!isRunning)}>
+            <button
+              aria-label="play"
+              className="hover:cursor-pointer"
+              onClick={() => setIsRunning(!isRunning)}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="35px"
@@ -76,7 +109,11 @@ function App() {
               </svg>
             </button>
           )}
-          <button aria-label="skip" onClick={() => setTime(0)}>
+          <button
+            aria-label="skip"
+            className="hover:cursor-pointer"
+            onClick={() => setTime(0)}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               height="35px"
