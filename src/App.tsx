@@ -47,12 +47,15 @@ function App() {
   return (
     <div className="min-h-screen w-screen bg-gray-200 flex items-center justify-center">
       {/*<!-- CARD -->*/}
-      <main className="bg-white w-4/5 flex flex-col items-center rounded-4xl shadow-2xl border-b-8 border-cyan-900 p-10 font-mono gap-16">
+      <main className="bg-white w-4/5 flex flex-col items-center rounded-4xl shadow-2xl border-b-8 border-cyan-900 p-10 font-mono gap-16 sm:w-96">
         <div className="flex-1 flex flex-col justify-center text-center">
-          <h2 className="text-4xl ">
-            {isBreak ? "Break" : "Focus!"} (Round {cycle + 1}/{MAX_CYCLES})
+          <h2 className="text-2xl sm:text-3xl">
+            {isBreak ? "Break" : "Focus!"}
           </h2>
-          <h1 className="text-6xl pt-4 font-black text-cyan-900 ">
+          <h2 className="text-2xl sm:text-3xl">
+            (Round {cycle + 1}/{MAX_CYCLES})
+          </h2>
+          <h1 className="text-6xl pt-4 font-black text-cyan-900 sm:text-7xl">
             {formatTime(time)}
           </h1>
         </div>
