@@ -27,23 +27,6 @@ npm run dev
 
 Open the local dev server URL shown by Vite in your browser.
 
-### Build for production
-
-```bash
-npm run build
-```
-
-### Preview the production build
-
-```bash
-npm run preview
-```
-
-### Lint the project
-
-```bash
-npm run lint
-```
 
 ## Project Structure
 
