@@ -45,9 +45,9 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-200 flex items-center justify-center">
+    <div className="min-h-screen w-screen bg-gray-200 flex items-center justify-center">
       {/*<!-- CARD -->*/}
-      <main className="bg-white h-72 w-72 flex flex-col items-center rounded-4xl shadow-2xl border-b-8 border-cyan-900 p-10 md:h-96 md:w-96">
+      <main className="bg-white w-4/5 flex flex-col items-center rounded-4xl shadow-2xl border-b-8 border-cyan-900 p-10 font-mono gap-16">
         <div className="flex-1 flex flex-col justify-center text-center">
           <h2 className="text-4xl ">
             {isBreak ? "Break" : "Focus!"} (Round {cycle + 1}/{MAX_CYCLES})
@@ -61,7 +61,7 @@ function App() {
         <section className="flex gap-8">
           <button
             aria-label="restart"
-            className="hover:cursor-pointer"
+            className="fill-gray-500 hover:fill-cyan-900 hover:cursor-pointer"
             onClick={() => {
               setIsRunning(false);
               setIsBreak(false);
@@ -81,7 +81,7 @@ function App() {
           {isRunning ? (
             <button
               aria-label="pause"
-              className="hover:cursor-pointer"
+              className="fill-gray-500 hover:fill-cyan-900 hover:cursor-pointer"
               onClick={() => setIsRunning(!isRunning)}
             >
               <svg
@@ -96,7 +96,7 @@ function App() {
           ) : (
             <button
               aria-label="play"
-              className="hover:cursor-pointer"
+              className="fill-gray-500 hover:fill-cyan-900 hover:cursor-pointer"
               onClick={() => setIsRunning(!isRunning)}
             >
               <svg
@@ -111,7 +111,7 @@ function App() {
           )}
           <button
             aria-label="skip"
-            className="hover:cursor-pointer"
+            className="fill-gray-500 hover:fill-cyan-900 hover:cursor-pointer"
             onClick={() => setTime(0)}
           >
             <svg
